@@ -45,7 +45,7 @@
         <div class="card-body">
           <h5 class="card-title" style="text-align: center;">{{recipe.name}}</h5>
           <p class="card-text">Made by - {{recipe.user}}</p>
-          <p class="card-text">{{recipe.description}}</p>
+          <p class="card-text">Description - <br>{{recipe.description}}</p>
         </div>
     </div>
     <div style="margin-left: 25%;">
@@ -53,17 +53,22 @@
             <a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-danger">Delete</a>
             <a href="{% url 'update_recipe' recipe.id %}" class="btn btn-success">Update</a>
         {% endif %}
+        {% if user.is_authenticated %}
+        <a href="{% url 'add_comment' recipe.id %}" class="btn btn-primary">Add a Comment</a>
+        {% endif %}
     </div>
-    {% if user.is_authenticated %}
-    <a href="{% url 'add_comment' recipe.id %}" class="btn btn-primary">Add a Comment</a>
-    {% endif %}
     <h3>Comments</h3>
-    <div>
-        <ul>
-            {% for c in comment%}
-            <li>{{c.comment}}</li>
-            {% endfor %}
-        </ul>
+    <br>
+    <div style="margin: 0% 8%;">
+      <table class="table table-striped">
+        <tbody>
+          {% for c in comment %}
+          <tr>
+            <td>{{c.comment}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
 </body>
 </html>

@@ -55,8 +55,7 @@ def update_recipe(request,id):
 
 def detail_recipe(request,id):
     receipe_list=Recipe.objects.get(id=id)
-    # comment=receipe_list.comment_id.all()
-    comment=Comments.objects.filter(comment_id=id)
+    comment=Comments.objects.filter(comment_id=id).order_by('-id')
     context={'recipe':receipe_list,'comment':comment}
     return render(request,'recipe_detail.html',context)
 
