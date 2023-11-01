@@ -16,13 +16,18 @@ def index(request):
 
 
 def home(request):
-    receipe_list=Recipe.objects.all()
+    receipe_list=Recipe.objects.order_by("-id")
+    if request.GET.get('search'):
+        receipe_list=receipe_list.filter(name__icontains= request.GET.get('search'))
     context={'recipe':receipe_list}
     return render(request,'home.html',context)
 
 
 def myrecipes(request):
     receipe_list=Recipe.objects.filter(user=request.user)
+    if request.GET.get('search'):
+        receipe_list=receipe_list.filter(name__icontains= request.GET.get('search'))
+
     context={'recipe':receipe_list}
     return render(request,'myrecipes.html',context)
 
@@ -47,3 +52,8 @@ def update_recipe(request,id):
         return redirect('myrecipes')
     context={'recipe':queryset}
     return render(request,'update_recipe.html',context)
+
+def detail_recipe(request,id):
+    receipe_list=Recipe.objects.get(id=id)
+    context={'recipe':receipe_list}
+    return render(request,'recipe_detail.html',context)

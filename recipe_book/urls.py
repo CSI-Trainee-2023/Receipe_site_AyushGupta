@@ -17,7 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from recipes import views
+from users import views as v
+from django.contrib.auth import views as auth_views
 urlpatterns = [
+    path('',views.home,name='homepage'),
     path('admin/', admin.site.urls),
-    path('Recipe/',views.index,name='index')
+    path('Recipe/',views.index,name='index'),
+    path('myRecipe/',views.myrecipes,name='myrecipes'),
+    path('recipe_detail/<id>/',views.detail_recipe,name='detaial_recipe'),
+    path('specifics/delete_recipe/<id>/',views.delete_recipe,name='delete_recipe'),
+    path('specifics/update_recipe/<id>/',views.update_recipe,name='update_recipe'),
+    path('newuser/',v.register,name='register'),
+    path('login/',auth_views.LoginView.as_view(template_name='login.html'),name='login'),
+    path('logout/',auth_views.LogoutView.as_view(template_name='logout.html'),name='logout')
 ]

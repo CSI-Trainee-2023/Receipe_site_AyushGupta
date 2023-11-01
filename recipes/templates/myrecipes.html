@@ -43,7 +43,7 @@
         </div>
     </nav>
     <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
     <h1>Your Receipes</h1>
@@ -63,8 +63,8 @@
                 <td>{{r.name}}</td>
                 <td width="500px">{{r.description}}</td>
                 <td>
-                    <a href="delete_recipe/{{r.id}}" class="btn btn-danger">Delete</a>
-                    <a href="update_recipe/{{r.id}}" class="btn btn-success">Update</a>
+                    <a href="{% url 'delete_recipe' r.id %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'update_recipe' r.id %}" class="btn btn-success">Update</a>
                 </td>
             </tr>
             {% endfor %}
