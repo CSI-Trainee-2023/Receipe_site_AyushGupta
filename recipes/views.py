@@ -55,5 +55,17 @@ def update_recipe(request,id):
 
 def detail_recipe(request,id):
     receipe_list=Recipe.objects.get(id=id)
-    context={'recipe':receipe_list}
+    # comment=receipe_list.comment_id.all()
+    comment=Comments.objects.filter(comment_id=id)
+    context={'recipe':receipe_list,'comment':comment}
     return render(request,'recipe_detail.html',context)
+
+def add_comment(request,id):
+    if request.method=="POST":
+        data=request.POST
+        Comments.objects.create(
+            comment=data.get('comment'),
+            comment_id=Recipe.objects.get(id=id)
+        )
+        return redirect('detail_recipe',id)
+    return render(request,'add_comment.html')
